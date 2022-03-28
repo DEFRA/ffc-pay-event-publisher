@@ -11,7 +11,10 @@
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --runInBand"
   },
   "author": "Defra",
-  "contributors": [],
+  "contributors": [
+    "Steve Dickinson steve.dickinson@defra.gov.uk",
+    "Simon Dunn simon.dunn1@defra.gov.uk"
+  ],
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@hapi/hapi": "^20.0.0",

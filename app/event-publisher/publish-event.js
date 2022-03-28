@@ -1,8 +1,18 @@
-const messageSchema = require('./event-schema')
+const validateEvent = require('./event-schema')
+const { trackEvent } = require('../app-insights')
+const { publishEventRequest } = require('../event-publisher/messaging')
 
 class PublishEvent {
-  async sendEvent (jsonMessage) {
-    console.log('Event sent:', jsonMessage)
+  constructor (config) {
+    this.appInsights = config.appInsights
+    this.config = config
+  }
+
+  async sendEvent (eventMessage) {
+    if (validateEvent(eventMessage)) {
+      await publishEventRequest(eventMessage, this.config)
+      trackEvent(eventMessage)
+    }
   }
 }
 
