@@ -1,0 +1,43 @@
+{
+  "name": "ffc-pay-event-publisher",
+  "version": "1.0.0",
+  "description": "Publish events",
+  "homepage": "https://github.com/DEFRA/ffc-protective-monitoring",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "jest --runInBand",
+    "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
+    "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
+    "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --runInBand"
+  },
+  "author": "Defra",
+  "contributors": [],
+  "license": "OGL-UK-3.0",
+  "dependencies": {
+    "@hapi/hapi": "^20.0.0",
+    "joi": "^17.4.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "jest-junit": "^11.1.0",
+    "nodemon": "^2.0.4",
+    "standard": "^14.3.4"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "beforeEach",
+      "expect",
+      "test",
+      "afterEach",
+      "jest",
+      "beforeAll",
+      "afterAll"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/test-output/**"
+    ]
+  }
+}
