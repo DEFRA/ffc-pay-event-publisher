@@ -1,6 +1,6 @@
 const validateEvent = require('./event-schema')
 const { trackEvent } = require('../app-insights')
-const { publishEventRequest } = require('../event-publisher/messaging')
+const { publishEventRequest } = require('../messaging')
 
 class PublishEvent {
   constructor (config) {
