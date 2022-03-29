@@ -1,46 +1,26 @@
 {
   "name": "ffc-pay-event-publisher",
   "version": "1.0.0",
-  "description": "Publish events",
-  "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher",
-  "main": "app/index.js",
-  "scripts": {
-    "test": "jest --runInBand",
-    "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand",
-    "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
-    "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --runInBand"
+  "description": "Event sending npm module for FFC pay services",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEFRA/ffc-pay-event-publisher.git"
   },
-  "author": "Defra",
+  "author": "Defra DDTS",
   "contributors": [
-    "Steve Dickinson steve.dickinson@defra.gov.uk",
-    "Simon Dunn simon.dunn1@defra.gov.uk"
+    "Simon Dunn simon.dunn1@rpa.gov.uk",
+    "Steve Dickinson steve.dickinson@defra.gov.uk"
   ],
   "license": "OGL-UK-3.0",
+  "bugs": {
+    "url": "https://github.com/DEFRA/ffc-pay-event-publisher/issues"
+  },
+  "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher#readme",
   "dependencies": {
-    "@hapi/hapi": "^20.0.0",
-    "joi": "^17.4.0"
+    "joi": "^17.4.2"
   },
   "devDependencies": {
-    "jest": "^26.6.3",
-    "jest-junit": "^11.1.0",
-    "nodemon": "^2.0.4",
-    "standard": "^14.3.4"
-  },
-  "standard": {
-    "globals": [
-      "describe",
-      "beforeEach",
-      "expect",
-      "test",
-      "afterEach",
-      "jest",
-      "beforeAll",
-      "afterAll"
-    ]
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/test-output/**"
-    ]
+    "standard": "^16.0.4"
   }
 }
