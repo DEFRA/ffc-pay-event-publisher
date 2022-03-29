@@ -2,7 +2,7 @@
   "name": "ffc-pay-event-publisher",
   "version": "1.0.0",
   "description": "Publish events",
-  "homepage": "https://github.com/DEFRA/ffc-protective-monitoring",
+  "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher",
   "main": "app/index.js",
   "scripts": {
     "test": "jest --runInBand",
