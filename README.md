@@ -12,29 +12,93 @@ npm install --save ffc-pay-event-publisher
 
 ### Configuration
 
+`name` - name of connection, if not supplied the address name will be used.  This value is also used in App Insights tracing
+
+`host` - Azure Service Bus namespace, for example, `myservicebus.servicebus.windows.net`
+
+`useCredentialChain` - Boolean value for whether to authenticate connection with using Azure's credential chain.  For example, set this to true if you wish to use [AAD Pod Identity](https://github.com/Azure/aad-pod-identity).  If `false`, then `username` and `password` are required.
+
+`username` - Azure Service Bus Shared Access Key name for authentication.  Not required if `useCredentialChain` is `true`.
+
+`password` - Azure Service Bus Shared Access Key value for authentication.  Not required if `useCredentialChain` is `true`.
+
+`type` - Azure Service Bus entity to connect to, allows `queue`, `sessionQueue`, `topic` or `subscription`.
+
+`address` - Name of the Azure Service Bus queue, topic or subscription to connect to.
+
+`topic` - Required for subscription connections only.  The name of the topic the subscription belongs to.
+
+`appInsights` - Application Insights module if logging is required
+
+`retries` - How many times should a sender try to send a message, defaulting to `5` if not supplied.  With Pod Identity and Azure Identity there is a scenario that the identity will not be allocated in time for it's usage which causes failure sending messages.  `5` is usually sufficient but can be increased if necessary.
+
+`retryWaitInMs` - How long should a sender wait in milliseconds before trying to resend, defaulting to `500` if not supplied.
+
+`exponentialRetry` - Whether to exponentially retry, ie doubling the `retryWaitInMs` on every retry.  Defaulted to `false`.
+
+`autoCompleteMessages` - (Subscriptions only - see below) Whether to auto complete messages once the action method has ran.  Defaults to `false`.
+
+`maxConcurrentCalls` - (Subscriptions only - see below) Maximum number of messages received from message handler without being settled.  Defaults to `1`.
+
+#### Example
+
+```
+const config = {
+  host: 'myservicebus.servicebus.windows.net',
+  useCredentialChain: false,
+  username: 'mySharedAccessKeyName',
+  password: 'mySharedAccessKey,
+  address: 'mySubscription,
+  type: 'subscription',
+  topic: 'myTopic',
+  appInsights: require('applicationinsights'),
+  retries: 5
+}
+```
+
+### Send event
+
+Message objects must follow the below structure.
+
+`name` - the name of the event
+
+`properties`:
+
+`id` - unique id to trace the events through the payments process
+
+`checkpoint` - name of the service the event is raised from
+
+`status` - the status of the payment eg. “in progress”, “completed”, “error”
+
+`message` - description of the raised event
+
+`timeStamp` - the timestamp of when the event was raised 
+
+`data` - an object of the data associated to the raised event
 
 #### Example usage
 
 ```
-const { PublishEvent } = require('ffc-protective-monitoring')
+const { PublishEvent } = require('ffc-pay-event-publisher')
 
-const protectiveMonitoring = new PublishEvent(PROTECTIVE_MONITORING_URL)
+const eventPublisher = new PublishEvent(config)
 
-await protectiveMonitoring.sendEvent({
-  sessionid: 'e66d78f5-a58d-46f6-a9b4-f8c90e99b6dc',
-  datetime: '2020-10-09T12:51:41.381Z',
-  version: '1.1',
-  application: 'FI001',
-  component: '<internal app name>',
-  ip: '127.0.0.1',
-  pmccode: '0703',
-  priority: '0',
-  details: {
-    transactioncode: '2306',
-    message: 'User successfully downloaded a stored document',
-    additionalinfo: '<details or obfuscated location of document, etc.>'
-  }
-})
+await eventPublisher.sendEvent({
+    name: 'Test event',
+    properties: {
+      id: '1234567890',
+      checkpoint: 'tests-service',
+      status : 'success',
+      action: {
+        type: 'processing',
+        message: 'Processing payment request',
+        timestamp: '01/01/2022',
+        data: {
+          test: 'test data'
+        }
+      }
+    }
+  })
 
 ```
 
