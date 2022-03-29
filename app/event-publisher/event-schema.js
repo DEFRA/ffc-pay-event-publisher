@@ -9,7 +9,6 @@ const eventSchema = joi.object({
     action: joi.object({
       type: joi.string().required(),
       message: joi.string().required(),
-      timestamp: joi.date().required(),
       data: joi.object()
     })
   })

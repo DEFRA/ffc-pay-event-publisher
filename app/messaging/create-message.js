@@ -1,4 +1,4 @@
-const createMessage = (body, type, options) => {
+const createMessage = (body, type, source, options) => {
   return {
     body,
     type,
