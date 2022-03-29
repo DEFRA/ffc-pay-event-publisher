@@ -1,0 +1,26 @@
+{
+  "name": "ffc-pay-event-publisher",
+  "version": "1.0.0",
+  "description": "Event sending npm module for FFC pay services",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEFRA/ffc-pay-event-publisher.git"
+  },
+  "author": "Defra DDTS",
+  "contributors": [
+    "Simon Dunn simon.dunn1@rpa.gov.uk",
+    "Steve Dickinson steve.dickinson@defra.gov.uk"
+  ],
+  "license": "OGL-UK-3.0",
+  "bugs": {
+    "url": "https://github.com/DEFRA/ffc-pay-event-publisher/issues"
+  },
+  "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher#readme",
+  "dependencies": {
+    "joi": "^17.4.2"
+  },
+  "devDependencies": {
+    "standard": "^16.0.4"
+  }
+}
