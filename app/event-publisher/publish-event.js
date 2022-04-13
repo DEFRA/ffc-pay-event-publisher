@@ -11,7 +11,7 @@ class PublishEvent {
   async sendEvent (eventMessage) {
     if (validateEvent(eventMessage)) {
       await publishEventRequest(eventMessage, this.config)
-      trackEvent(eventMessage)
+      trackEvent(this.appInsights, eventMessage)
     }
   }
 }
