@@ -8,8 +8,8 @@ class PublishEventBatch {
     this.config = config
   }
 
-  async sendEvents (eventMessages) {
-    if (validateEvent(eventMessages)) {
+  async sendEvents (eventMessages) {    
+    if (eventMessages.every(eventMessage => validateEvent(eventMessage)) {
       await publishEventBatchRequest(eventMessages, this.config)
       trackEvents(eventMessages)
     }
