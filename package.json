@@ -1,6 +1,6 @@
 {
   "name": "ffc-pay-event-publisher",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Event sending npm module for FFC pay services",
   "main": "index.js",
   "repository": {
@@ -10,7 +10,8 @@
   "author": "Defra DDTS",
   "contributors": [
     "Simon Dunn simon.dunn1@rpa.gov.uk",
-    "Steve Dickinson steve.dickinson@defra.gov.uk"
+    "Steve Dickinson steve.dickinson@defra.gov.uk",
+    "John Watson john.watson2@rpa.gov.uk"
   ],
   "license": "OGL-UK-3.0",
   "bugs": {
