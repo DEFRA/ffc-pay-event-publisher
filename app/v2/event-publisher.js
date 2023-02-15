@@ -1,5 +1,5 @@
 const validateEvent = require('./validate-event')
-const { sendMessage, sendMessageBatch } = require('../messaging')
+const { sendMessage, sendMessageBatch } = require('./messaging')
 
 class EventPublisher {
   constructor (config) {
