@@ -18,4 +18,6 @@ class EventPublisher {
   }
 }
 
-module.exports = EventPublisher
+module.exports = {
+  EventPublisher
+}
