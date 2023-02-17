@@ -18,4 +18,6 @@ const createMessage = (event) => {
   }
 }
 
-module.exports = createMessage
+module.exports = {
+  createMessage
+}

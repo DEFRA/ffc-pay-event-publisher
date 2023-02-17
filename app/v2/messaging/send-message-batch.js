@@ -1,5 +1,5 @@
 const { MessageBatchSender } = require('ffc-messaging')
-const createMessage = require('./create-message')
+const { createMessage } = require('./create-message')
 
 const sendMessageBatch = async (event, config) => {
   const messages = event.map(createMessage)
@@ -8,4 +8,6 @@ const sendMessageBatch = async (event, config) => {
   await eventSender.closeConnection()
 }
 
-module.exports = sendMessageBatch
+module.exports = {
+  sendMessageBatch
+}

@@ -1,5 +1,5 @@
 const { MessageSender } = require('ffc-messaging')
-const createMessage = require('./create-message')
+const { createMessage } = require('./create-message')
 
 const sendMessage = async (event, config) => {
   const message = createMessage(event)
@@ -8,4 +8,6 @@ const sendMessage = async (event, config) => {
   await eventSender.closeConnection()
 }
 
-module.exports = sendMessage
+module.exports = {
+  sendMessage
+}

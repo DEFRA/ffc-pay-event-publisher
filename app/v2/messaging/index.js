@@ -1,5 +1,5 @@
-const sendMessage = require('./send-message')
-const sendMessageBatch = require('./send-message-batch')
+const { sendMessage } = require('./send-message')
+const { sendMessageBatch } = require('./send-message-batch')
 
 module.exports = {
   sendMessage,

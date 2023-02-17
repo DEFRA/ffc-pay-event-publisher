@@ -9,4 +9,6 @@ const validateEvent = (event) => {
   return true
 }
 
-module.exports = validateEvent
+module.exports = {
+  validateEvent
+}
