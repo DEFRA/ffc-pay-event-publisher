@@ -13,7 +13,11 @@ class EventPublisher {
   }
 
   async publishEvents (events) {
+    console.log('Received events:')
+    console.log(events)
     const validEvents = events.filter(validateEvent)
+    console.log('Valid events:')
+    console.log(validEvents)
     await sendMessageBatch(validEvents, this.config)
   }
 }
