@@ -1,4 +1,4 @@
-const { EventPublisher } = require('./event-publisher')
+const { EventPublisher } = require('./event-publisher/event-publisher')
 
 module.exports = {
   EventPublisher
