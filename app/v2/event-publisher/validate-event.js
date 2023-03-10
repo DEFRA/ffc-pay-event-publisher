@@ -1,4 +1,4 @@
-const schema = require('./schema')
+const schema = require('./event-schema')
 
 const validateEvent = (event) => {
   const validate = schema.validate(event)
