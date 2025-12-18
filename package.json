@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher#readme",
   "dependencies": {
-    "ffc-messaging": "2.10.3",
+    "ffc-messaging": "2.10.1",
     "joi": "17.4.2",
     "uuid": "9.0.0"
   },
