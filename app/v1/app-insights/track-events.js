@@ -1,7 +1,8 @@
 const trackEvent = require('./track-event')
 
-module.exports = (appInsights, eventMessages) => {
+const trackEvents = (appInsights, eventMessages) => {
   eventMessages.forEach(eventMessage => {
     trackEvent(appInsights, eventMessage)
   })
 }
+module.exports = trackEvents
