@@ -1,6 +1,6 @@
 {
   "name": "ffc-pay-event-publisher",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Event sending npm module for FFC pay services",
   "main": "index.js",
   "repository": {
@@ -8,11 +8,17 @@
     "url": "git+https://github.com/DEFRA/ffc-pay-event-publisher.git"
   },
   "author": "Defra DDTS",
+  "scripts": {
+    "test": "jest --runInBand --forceExit",
+    "test:unit": "PORT=0 node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPatterns=test/unit",
+    "test:watch": "jest --coverage=false --onlyChanged --watch --runInBand"
+  },
   "contributors": [
     "Simon Dunn simon.dunn1@rpa.gov.uk",
     "Steve Dickinson steve.dickinson@defra.gov.uk",
     "John Watson john.watson2@rpa.gov.uk",
-    "Sam Plackett samuel.plackett@atos.net"
+    "Sam Plackett samuel.plackett@atos.net",
+    "Leigh Godson leigh.godson@atos.net"
   ],
   "license": "OGL-UK-3.0",
   "bugs": {
@@ -20,12 +26,14 @@
   },
   "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher#readme",
   "dependencies": {
-    "ffc-messaging": "2.10.3",
+    "ffc-messaging": "2.10.1",
     "joi": "17.4.2",
     "uuid": "9.0.0"
   },
   "devDependencies": {
     "eslint": "9.39.1",
+    "jest": "29.7.0",
+    "jest-junit": "14.0.0",
     "neostandard": "0.12.2"
   }
 }
