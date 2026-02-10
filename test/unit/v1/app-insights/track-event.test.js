@@ -6,10 +6,10 @@ describe('trackEvent', () => {
 
   beforeEach(() => {
     mockDefaultClient = {
-      trackEvent: jest.fn(),
+      trackEvent: jest.fn()
     }
     mockAppInsights = {
-      defaultClient: mockDefaultClient,
+      defaultClient: mockDefaultClient
     }
   })
 
