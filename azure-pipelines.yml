@@ -42,4 +42,6 @@ extends:
     prDeployment: ${{ parameters.prDeployment }}
     branchDeployment: ${{ parameters.branchDeployment }}
     sndDeployment: ${{ parameters.sndDeployment }}
+    extraSonarProperties: |
+      sonar.javascript.lcov.reportPaths=$(Build.SourcesDirectory)/test-output/lcov.info
     # failOnThreshold: moderate
