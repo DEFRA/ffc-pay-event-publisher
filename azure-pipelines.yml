@@ -30,7 +30,6 @@ resources:
       endpoint: DEFRA
       type: github
       name: defra/fcp-pipeline-common
-      ref: pl-1054-1
       # ref: pl-709   # Optional: build specific pipeline branch
 
 # Pipeline template
