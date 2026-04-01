@@ -1,6 +1,6 @@
 {
   "name": "ffc-pay-event-publisher",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Event sending npm module for FFC pay services",
   "main": "index.js",
   "repository": {
@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher#readme",
   "dependencies": {
-    "ffc-messaging": "2.10.1",
-    "joi": "17.4.2",
+    "ffc-messaging": "2.10.5",
+    "joi": "17.13.3",
     "uuid": "9.0.0"
   },
   "devDependencies": {
