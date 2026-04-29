@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid')
+const { randomUUID } = require('node:crypto')
 
 const createMessage = (event) => {
   const { type, source, subject = undefined, data = undefined } = event
@@ -7,7 +7,7 @@ const createMessage = (event) => {
       specversion: '1.0',
       type,
       source,
-      id: uuidv4(),
+      id: randomUUID(),
       time: new Date().toISOString(),
       subject,
       datacontenttype: 'text/json',
