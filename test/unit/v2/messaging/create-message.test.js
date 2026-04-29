@@ -1,12 +1,11 @@
 const { createMessage } = require('../../../../app/v2/messaging/create-message')
 
-jest.mock('uuid')
-
-const { v4: uuidv4 } = require('uuid')
+jest.mock('node:crypto')
+const { randomUUID } = require('node:crypto')
 
 describe('createMessage', () => {
   beforeEach(() => {
-    uuidv4.mockReturnValue('mock-uuid')
+    randomUUID.mockReturnValue('mock-uuid')
     jest.spyOn(global, 'Date').mockImplementation(() => ({
       toISOString: () => '2023-01-01T00:00:00.000Z'
     }))
@@ -38,7 +37,7 @@ describe('createMessage', () => {
       type: 'create',
       source: 'system'
     })
-    expect(uuidv4).toHaveBeenCalled()
+    expect(randomUUID).toHaveBeenCalled()
   })
 
   test('should include subject and data if provided', () => {
