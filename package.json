@@ -1,6 +1,6 @@
 {
   "name": "ffc-pay-event-publisher",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Event sending npm module for FFC pay services",
   "main": "index.js",
   "repository": {
