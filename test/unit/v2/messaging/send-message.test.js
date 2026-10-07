@@ -1,33 +1,30 @@
 const { sendMessage } = require('../../../../app/v2/messaging/send-message')
 
-jest.mock('ffc-messaging')
+jest.mock('../../../../app/messaging/service-bus')
 jest.mock('../../../../app/v2/messaging/create-message')
 
-const { MessageSender } = require('ffc-messaging')
+const { getSender, sendMessage: sendServiceBusMessage } = require('../../../../app/messaging/service-bus')
 const { createMessage } = require('../../../../app/v2/messaging/create-message')
 
 describe('sendMessage', () => {
-  let mockEventSender
+  let mockSender
   let config
   let event
 
   beforeEach(() => {
     config = { connectionString: 'test' }
     event = { type: 'create', source: 'system' }
-    mockEventSender = {
-      sendMessage: jest.fn().mockResolvedValue(),
-      closeConnection: jest.fn().mockResolvedValue()
-    }
-    MessageSender.mockImplementation(() => mockEventSender)
+    mockSender = { name: 'sender' }
+    getSender.mockReturnValue(mockSender)
+    sendServiceBusMessage.mockResolvedValue()
     createMessage.mockReturnValue({ body: 'mocked', type: 'create', source: 'system' })
   })
 
-  test('should create MessageSender, create message, send, and close', async () => {
+  test('should get cached sender, create message, and send', async () => {
     await sendMessage(event, config)
 
     expect(createMessage).toHaveBeenCalledWith(event)
-    expect(MessageSender).toHaveBeenCalledWith(config)
-    expect(mockEventSender.sendMessage).toHaveBeenCalledWith({ body: 'mocked', type: 'create', source: 'system' })
-    expect(mockEventSender.closeConnection).toHaveBeenCalled()
+    expect(getSender).toHaveBeenCalledWith(config)
+    expect(sendServiceBusMessage).toHaveBeenCalledWith(mockSender, { body: 'mocked', type: 'create', source: 'system' })
   })
 })

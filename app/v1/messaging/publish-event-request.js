@@ -1,14 +1,13 @@
-const { MessageSender } = require('ffc-messaging')
+const { getSender, sendMessage: sendServiceBusMessage } = require('../../messaging/service-bus')
 const createMessage = require('./create-message')
 
 const publishEventRequest = async (eventMessage, config) => {
-  const eventSender = new MessageSender(config)
   const messageType = eventMessage.properties.action.type
   const source = eventMessage.properties.checkpoint
   eventMessage.properties.action.timestamp = new Date().toISOString()
   const message = createMessage(eventMessage, messageType, source)
-  await eventSender.sendMessage(message)
-  await eventSender.closeConnection()
+  const sender = getSender(config)
+  await sendServiceBusMessage(sender, message)
 }
 
 module.exports = publishEventRequest
