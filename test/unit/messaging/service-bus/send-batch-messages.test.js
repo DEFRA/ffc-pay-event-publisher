@@ -28,6 +28,10 @@ describe('sendBatchMessages', () => {
     messageSchema.validateAsync.mockResolvedValue()
   })
 
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
   test('adds all messages to one batch and sends it', async () => {
     const messages = [
       { body: { id: 1 }, type: 'type-1', source: 'source' },
@@ -40,6 +44,13 @@ describe('sendBatchMessages', () => {
     expect(batch.tryAddMessage).toHaveBeenCalledTimes(2)
     expect(sender.sendMessages).toHaveBeenCalledTimes(1)
     expect(sender.sendMessages).toHaveBeenCalledWith(batch, undefined)
+  })
+
+  test('does not send an empty batch', async () => {
+    await sendBatchMessages(sender, [])
+
+    expect(sender.createMessageBatch).toHaveBeenCalledTimes(1)
+    expect(sender.sendMessages).not.toHaveBeenCalled()
   })
 
   test('flushes full batch and starts a new one', async () => {
@@ -60,6 +71,49 @@ describe('sendBatchMessages', () => {
     await sendBatchMessages(sender, messages)
 
     expect(sender.createMessageBatch).toHaveBeenCalledTimes(2)
+    expect(sender.sendMessages).toHaveBeenCalledTimes(2)
+  })
+
+  test('retries sending a full batch after a transient failure', async () => {
+    const tryAddResults = [true, false, true]
+    batch.tryAddMessage.mockImplementation(() => {
+      const result = tryAddResults.shift()
+      if (result) {
+        batch.count += 1
+      }
+      return result
+    })
+    sender.sendMessages
+      .mockRejectedValueOnce(new Error('temporary failure'))
+      .mockResolvedValue()
+    jest.useFakeTimers()
+
+    const messages = [
+      { body: { id: 1 }, type: 'type-1', source: 'source' },
+      { body: { id: 2 }, type: 'type-2', source: 'source' }
+    ]
+
+    const sendPromise = sendBatchMessages(sender, messages)
+    await jest.runAllTimersAsync()
+    await sendPromise
+
+    expect(sender.sendMessages).toHaveBeenCalledTimes(3)
+  })
+
+  test('retries sending the final batch after a transient failure', async () => {
+    sender.sendMessages
+      .mockRejectedValueOnce(new Error('temporary failure'))
+      .mockResolvedValue()
+    jest.useFakeTimers()
+
+    const messages = [
+      { body: { id: 1 }, type: 'type-1', source: 'source' }
+    ]
+
+    const sendPromise = sendBatchMessages(sender, messages)
+    await jest.runAllTimersAsync()
+    await sendPromise
+
     expect(sender.sendMessages).toHaveBeenCalledTimes(2)
   })
 
