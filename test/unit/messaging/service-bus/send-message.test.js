@@ -15,6 +15,10 @@ describe('sendMessage', () => {
     }
   })
 
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
   test('validates message, enriches it and sends it', async () => {
     const message = {
       body: { claimId: 1 },
@@ -49,6 +53,25 @@ describe('sendMessage', () => {
     await sendMessage(sender, message, options)
 
     expect(sender.sendMessages).toHaveBeenCalledWith(expect.any(Object), options)
+  })
+
+  test('retries sending after a transient failure', async () => {
+    const message = {
+      body: { claimId: 1 },
+      type: 'uk.gov.demo.claim.validated',
+      source: 'ffc-demo-claim-service'
+    }
+    messageSchema.validateAsync.mockResolvedValue()
+    sender.sendMessages
+      .mockRejectedValueOnce(new Error('temporary failure'))
+      .mockResolvedValue()
+    jest.useFakeTimers()
+
+    const sendPromise = sendMessage(sender, message)
+    await jest.runAllTimersAsync()
+    await sendPromise
+
+    expect(sender.sendMessages).toHaveBeenCalledTimes(2)
   })
 
   test('throws if validation fails', async () => {
