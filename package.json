@@ -27,9 +27,9 @@
   },
   "homepage": "https://github.com/DEFRA/ffc-pay-event-publisher#readme",
   "dependencies": {
-    "@azure/identity": "4.13.2",
+    "@azure/identity": "4.14.1",
     "@azure/service-bus": "7.9.5",
-    "joi": "18.2.9"
+    "joi": "18.3.1"
   },
   "devDependencies": {
     "eslint": "9.39.1",
